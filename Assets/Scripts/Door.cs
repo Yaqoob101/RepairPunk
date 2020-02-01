@@ -26,11 +26,17 @@ public class Door : InteractableObject
 
     private void Update()
     {
-        if (Mathf.Abs(rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) > 0.1f)
+        if (isOpen)
         {
-            float changeInPressure = (rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) / 2;
-            rooms[0].AddAirPressure(-changeInPressure);
-            rooms[1].AddAirPressure(changeInPressure);
+            if (Mathf.Abs(rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) > 0.1f)
+            {
+                float changeInPressure = (rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) / 2;
+                rooms[0].AddAirPressure(-changeInPressure);
+                rooms[1].AddAirPressure(changeInPressure);
+            }
+        } else
+        {
+
         }
         //print("Air Pressure room 1: " + rooms[1].GetAirPressure());
     }

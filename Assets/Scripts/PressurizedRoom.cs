@@ -90,14 +90,14 @@ public class PressurizedRoom : MonoBehaviour
     public void AddAir(float inAir)
     {
 
-        if (inAir < 0)
-        {
-            print("[Error]: Tried to SetAir to a negative amount, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to " + airAmount);
-        }
-        else
-        {
+        //if (inAir < 0)
+        //{
+        //    print("[Error]: Tried to SetAir to a negative amount, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to " + airAmount);
+        //}
+        //else
+        //{
             SetAir(airAmount + inAir);
-        }
+        //}
     }
 
     private void SetAir(float inAir)

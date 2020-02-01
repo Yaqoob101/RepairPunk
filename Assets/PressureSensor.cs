@@ -12,7 +12,7 @@ public class PressureSensor : MonoBehaviour
     float hurtTimer = 1.2f;
     float timer = 0;
 
-    private void OnTriggerEnter2D(Collider c)
+    private void OnTriggerEnter2D (Collider2D c)
     {
         if(c.tag == "room")
         {
@@ -24,7 +24,7 @@ public class PressureSensor : MonoBehaviour
     {
         if(currentRoom != null)
         {
-            float pressure = currentRoom.GetAirPressure();
+            int pressure = (int)currentRoom.GetAirPressure();
             pressureOutput.text = pressure.ToString();
             if (pressure <= 0)
             {

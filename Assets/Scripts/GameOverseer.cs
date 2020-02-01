@@ -74,8 +74,8 @@ public class GameOverseer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             TogglePause();
-        if (Input.GetKeyDown(KeyCode.T))
-            CharacterMotor.instance.TakeDamage();
+        //if (Input.GetKeyDown(KeyCode.T))
+        //    CharacterMotor.instance.TakeDamage();
     }
 
     public void Failure()
