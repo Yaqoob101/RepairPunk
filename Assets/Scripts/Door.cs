@@ -37,20 +37,18 @@ public class Door : InteractableObject
 
     private void Update()
     {
-        float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
         if (isOpen)
         {
-            
-            if (Mathf.Abs(differenceInPressure) > PRESSURE_FUZZY_LIMIT)
+            if (Mathf.Abs(rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) > 0.1f)
             {
-                float changeInPressure = (differenceInPressure) / 2;
+                float changeInPressure = (rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) / 2;
                 rooms[0].AddAirPressure(-changeInPressure);
                 rooms[1].AddAirPressure(changeInPressure);
             }
         }
         else
         {
-            
+            float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
             if (Mathf.Abs(differenceInPressure) > DOOR_MAX_PRESSURE)
             {
                 print("A door broke! The air pressure difference was: " + differenceInPressure);
@@ -65,7 +63,7 @@ public class Door : InteractableObject
                     BumpPlayer(rooms[1]);
                 }
                 DoorBreak();
-                
+
             }
         }
         //print("Air Pressure room 1: " + rooms[1].GetAirPressure());
