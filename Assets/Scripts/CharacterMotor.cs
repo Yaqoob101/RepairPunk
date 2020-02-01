@@ -134,7 +134,7 @@ public class CharacterMotor : MonoBehaviour
 
     static float maxHealth = 100;
     float currentHelth = maxHealth;
-    public void TakeDamage()
+    public void TakeDamage(float damage)
     {
         StartCoroutine(DamageEffects(10f));
     }
@@ -157,5 +157,6 @@ public class CharacterMotor : MonoBehaviour
 
         if (currentHelth <= 0)
             GameOverseer.instance.Failure();
+
     }
 }
