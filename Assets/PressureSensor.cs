@@ -17,6 +17,7 @@ public class PressureSensor : MonoBehaviour
         if(c.tag == "room")
         {
             currentRoom = c.GetComponent<PressurizedRoom>();
+            CharacterMotor.instance.currentRoom = currentRoom;
         }
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraShake: MonoBehaviour
 {
     public static CameraShake instance = null;
-    float difference = 1;
     private void Start()
     {
         if(instance == null)
@@ -14,12 +13,12 @@ public class CameraShake: MonoBehaviour
             Destroy(this);
     }
 
-    public void Shake()
+    public void Shake(float amount)
     {
-        StartCoroutine(Vibration());
+        StartCoroutine(Vibration(amount));
     }
 
-    IEnumerator Vibration()
+    IEnumerator Vibration(float amount)
     {
         Vector3 origin = transform.position;
         float timer = 0;
@@ -27,8 +26,8 @@ public class CameraShake: MonoBehaviour
 
         for (int i = 0; i < 5; i++) {
             Vector3 startPos = transform.position;
-            Vector3 endPos = new Vector3(Random.Range(origin.x - difference, origin.x + difference),
-                                         Random.Range(origin.y - difference, origin.y + difference),
+            Vector3 endPos = new Vector3(Random.Range(origin.x - amount, origin.x + amount),
+                                         Random.Range(origin.y - amount, origin.y + amount),
                                          Camera.main.transform.position.z);
 
             while (timer < endTime)

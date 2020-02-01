@@ -8,6 +8,7 @@ public class CharacterMotor : MonoBehaviour
 
     enum FacingDirection { Up, Side, Down };
     public Vector2 moveDirection = Vector3.zero;
+    public PressurizedRoom currentRoom;
 
     [SerializeField]
     LayerMask interactables;
@@ -162,6 +163,27 @@ public class CharacterMotor : MonoBehaviour
 
     public void BumpCharacter(Vector3 bumpVec, PressurizedRoom greaterPressureRoom)
     {
+        StartCoroutine(MovePlayer(bumpVec, greaterPressureRoom));
+        TakeDamage(10f);
+    }
+
+    IEnumerator MovePlayer(Vector3 bumpVec, PressurizedRoom greaterPressureRoom)
+    {
+        float timer = 0;
+        float moveTime = 0.2f;
+
+        bumpVec = currentRoom != greaterPressureRoom ? bumpVec : bumpVec * -1;
+
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + bumpVec * 4f;
+
+
+        while(timer < moveTime)
+        {
+            timer += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPos, endPos, timer / moveTime);
+            yield return null;
+        }
 
     }
 }

@@ -10,13 +10,13 @@ public class Furniture : InteractableObject
     string displayInfo;
     [SerializeField]
     PressurizedRoom room;
-
-    float drainSpeed;
+    [SerializeField]
+    float drainSpeed = 1;
 
     private void Start()
     {
         //drainSpeed = Random.Range(10, 100);
-        drainSpeed = 100;
+        //drainSpeed = 1;
     }
 
     // Start is called before the first frame update
