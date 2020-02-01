@@ -218,6 +218,7 @@ MonoBehaviour:
   HasAPuncture: 1
   displayInfo: Hi I am a chair
   room: {fileID: 1682131894}
+  drainSpeed: 1
 --- !u!61 &19472260
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -788,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0}
+  currentRoom: {fileID: 0}
   interactables:
     serializedVersion: 2
     m_Bits: 768
@@ -1622,6 +1624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   open: {fileID: -4111987881111503075, guid: 9a3b7636e69ab6844a3a9ee1dc671575, type: 3}
   shut: {fileID: -3993316071750138500, guid: 9a3b7636e69ab6844a3a9ee1dc671575, type: 3}
+  broken: {fileID: 0}
   rooms:
   - {fileID: 1682131894}
   - {fileID: 526647553}

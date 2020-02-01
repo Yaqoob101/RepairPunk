@@ -6,11 +6,11 @@ public class Door : InteractableObject
 {
     public const float DOOR_MAX_PRESSURE = 500.0f;
     public const float DOOR_BREAK_BUMP_SCALAR = 1;
-    public const float PRESSURE_FUZZY_LIMIT = 0.1f
+    public const float PRESSURE_FUZZY_LIMIT = 0.1f;
 
 
     [SerializeField]
-    Sprite open, shut;
+    Sprite open, shut, broken;
     [SerializeField]
     PressurizedRoom[] rooms = new PressurizedRoom[2];
 
@@ -75,6 +75,9 @@ public class Door : InteractableObject
     {
         isBroken = true;
         isOpen = true;
+        gameObject.layer = 9;
+        //_art.sprite = broken;
+        CameraShake.instance.Shake(0.5f);
     }
 
     private void BumpPlayer(PressurizedRoom greaterPressureRoom)
