@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameOverseer : MonoBehaviour
 {
+
+    public static GameOverseer instance = null;
+
     [SerializeField]
     float endTime = 240;
 
@@ -14,6 +17,14 @@ public class GameOverseer : MonoBehaviour
     RectTransform bar;
 
     bool isPaused;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -46,11 +57,29 @@ public class GameOverseer : MonoBehaviour
     private void TogglePause()
     {
         isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
+    }
+    void Pause()
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+    void Unpause()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+            TogglePause();
+        if (Input.GetKeyDown(KeyCode.T))
+            CharacterMotor.instance.TakeDamage();
+    }
+
+    public void Failure()
+    {
+        print("You Lose!");
     }
 }

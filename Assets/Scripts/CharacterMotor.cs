@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class CharacterMotor : MonoBehaviour
 {
+    public static CharacterMotor instance = null;
+
     enum FacingDirection { Up, Side, Down };
     public Vector2 moveDirection = Vector3.zero;
 
     [SerializeField]
     LayerMask interactables;
 
-    float speed = 2;
     SpriteRenderer characterArt;
+    float speed = 2;
     Animator _animator;
     FacingDirection currentOrientation;
+    bool stunned;
 
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+
         _animator = GetComponent<Animator>();
         characterArt = GetComponent<SpriteRenderer>();
     }
@@ -29,6 +37,9 @@ public class CharacterMotor : MonoBehaviour
 
     void Movement()
     {
+        if (stunned)
+            return;
+
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
         _animator.SetBool("isIdleUp", false);
         _animator.SetBool("isIdleDown", false);
@@ -104,6 +115,9 @@ public class CharacterMotor : MonoBehaviour
 
     public void Interact()
     {
+        if (stunned)
+            return;
+
         Vector2 rayDirection = Vector2.up;
         if (currentOrientation == FacingDirection.Side)
             rayDirection = characterArt.flipX ? Vector2.left : Vector2.right;
@@ -116,5 +130,32 @@ public class CharacterMotor : MonoBehaviour
         if (hit)
             hit.collider.GetComponent<InteractableObject>().Interact();
 
+    }
+
+    static float maxHealth = 100;
+    float currentHelth = maxHealth;
+    public void TakeDamage()
+    {
+        StartCoroutine(DamageEffects(10f));
+    }
+
+    IEnumerator DamageEffects(float amount)
+    {
+        //Initial damage and feed back
+        currentHelth -= amount;
+        float speedReference = speed;
+        speed = 0;
+        characterArt.color = Color.red;
+        stunned = true;
+
+        // Play Animation
+        yield return new WaitForSeconds(0.2f);
+
+        stunned = false;
+        speed = speedReference;
+        characterArt.color = Color.white;
+
+        if (currentHelth <= 0)
+            GameOverseer.instance.Failure();
     }
 }
