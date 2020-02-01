@@ -71,6 +71,12 @@ public class PressurizedRoom : MonoBehaviour
         return roomVolume;
     }
 
+    public float GetDifferenceInAirPressure(PressurizedRoom inRoom)
+    {
+        float difference = inRoom.GetAirAmount() - this.GetAirPressure();
+        return difference;
+    }
+
 
 
     public void AddAirPressure(float deltaPressure)
@@ -80,25 +86,33 @@ public class PressurizedRoom : MonoBehaviour
         float deltaAir = (newPressure * roomVolume) - airAmount;
         AddAir(deltaAir);
     }
+
     public void AddAir(float inAir)
     {
-        SetAir(airAmount + inAir);
-        
+
+        if (inAir < 0)
+        {
+            print("[Error]: Tried to SetAir to a negative amount, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to " + airAmount);
+        }
+        else
+        {
+            SetAir(airAmount + inAir);
+        }
     }
 
     private void SetAir(float inAir)
     {
-        if(airAmount < 0)
+        if (airAmount < 0)
         {
             print("[Error]: Tried to SetAir while airAmount was negative, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to 0");
             airAmount = 0;
-            
+
         }
         else
         {
             airAmount = inAir;
         }
-        
+
     }
 
 }
