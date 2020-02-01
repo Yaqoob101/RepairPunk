@@ -5,7 +5,7 @@ using UnityEngine;
 public class PressurizedRoom : MonoBehaviour
 {
     public const float DEFAULT_VOLUME = 1.0f; //The total volume of space in the room by default
-    public const float DEFAULT_AIR_AMOUNT = 100000.0f; //The defualt amount of air in a room
+    public const float DEFAULT_AIR_AMOUNT = 1000.0f; //The defualt amount of air in a room
 
 
     //float airPressure = DEFAULT_AIRPRESSURE; //The air pressure in this room during this tick

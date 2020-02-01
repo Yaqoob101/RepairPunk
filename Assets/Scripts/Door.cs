@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Door : InteractableObject
 {
-    public const float DOOR_MAX_PRESSURE = 800.0f;
+    public const float DOOR_MAX_PRESSURE = 500.0f;
+    public const float DOOR_BREAK_BUMP_SCALAR = 1;
 
 
     [SerializeField]
@@ -48,21 +49,28 @@ public class Door : InteractableObject
         {
             if (rooms[0].GetDifferenceInAirPressure(rooms[1]) > DOOR_MAX_PRESSURE)
             {
-                doorBreak();
-                pullPlayer();
+                print("A door broke! The air pressure difference was: " + rooms[0].GetDifferenceInAirPressure(rooms[1]));
+                DoorBreak();
+                PullPlayer();
             }
         }
         //print("Air Pressure room 1: " + rooms[1].GetAirPressure());
     }
 
-    private void doorBreak()
+    private void DoorBreak()
     {
         isBroken = true;
         isOpen = true;
     }
 
-    private void pullPlayer()
+    private void PullPlayer()
     {
-    
+        Vector3 characterPos = CharacterMotor.instance.transform.position;
+        float differenceX = characterPos.x - transform.position.x;
+        float differenceY = characterPos.y - transform.position.y;
+
+        Vector3 impulse = new Vector3(differenceX * DOOR_BREAK_BUMP_SCALAR, differenceY * DOOR_BREAK_BUMP_SCALAR, 0);
+
+        CharacterMotor.instance.BumpCharacter(impulse);
     }
 }

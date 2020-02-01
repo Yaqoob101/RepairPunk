@@ -159,4 +159,9 @@ public class CharacterMotor : MonoBehaviour
             GameOverseer.instance.Failure();
 
     }
+
+    public void BumpCharacter(Vector3 bumpVec)
+    {
+
+    }
 }
