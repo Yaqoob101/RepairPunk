@@ -13,10 +13,21 @@ public class Furniture : InteractableObject
     [SerializeField]
     float drainSpeed = 1;
 
+    AudioSource _source;
+
     private void Start()
     {
+        _source = GetComponent<AudioSource>();
+        AddPuncture();
         //drainSpeed = Random.Range(10, 100);
         //drainSpeed = 1;
+    }
+
+    public void AddPuncture()
+    {
+        HasAPuncture = true;
+        drainSpeed = Random.Range(1, 5);
+        _source.Play();
     }
 
     // Start is called before the first frame update
@@ -28,6 +39,7 @@ public class Furniture : InteractableObject
         {
             print("You have found and sealed a breach!");
             HasAPuncture = false;
+            _source.Stop();
         }
     }
 

@@ -175,7 +175,7 @@ public class CharacterMotor : MonoBehaviour
         bumpVec = currentRoom != greaterPressureRoom ? bumpVec : bumpVec * -1;
 
         Vector3 startPos = transform.position;
-        Vector3 endPos = startPos + bumpVec * 4f;
+        Vector3 endPos = startPos + bumpVec;
 
 
         while(timer < moveTime)
