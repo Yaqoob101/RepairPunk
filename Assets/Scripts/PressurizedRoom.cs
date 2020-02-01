@@ -73,7 +73,7 @@ public class PressurizedRoom : MonoBehaviour
 
     public float GetDifferenceInAirPressure(PressurizedRoom inRoom)
     {
-        float difference = this.GetAirPressure() - inRoom.GetAirAmount();
+        float difference = this.GetAirPressure() - inRoom.GetAirPressure(); ;
         return difference;
     }
 
