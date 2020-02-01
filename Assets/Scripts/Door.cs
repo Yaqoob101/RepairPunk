@@ -47,11 +47,22 @@ public class Door : InteractableObject
         }
         else
         {
-            if (rooms[0].GetDifferenceInAirPressure(rooms[1]) > DOOR_MAX_PRESSURE)
+            float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
+            if (Mathf.Abs(differenceInPressure) > DOOR_MAX_PRESSURE)
             {
-                print("A door broke! The air pressure difference was: " + rooms[0].GetDifferenceInAirPressure(rooms[1]));
+                print("A door broke! The air pressure difference was: " + differenceInPressure);
+                if (differenceInPressure > 0)
+                {
+                    print("Door 0 had the greater pressure");
+                    PullPlayer(rooms[0]);
+                }
+                else
+                {
+                    print("Door 1 had the greater pressure");
+                    BumpPlayer(rooms[1]);
+                }
                 DoorBreak();
-                PullPlayer();
+                
             }
         }
         //print("Air Pressure room 1: " + rooms[1].GetAirPressure());
@@ -63,7 +74,7 @@ public class Door : InteractableObject
         isOpen = true;
     }
 
-    private void PullPlayer()
+    private void BumpPlayer(PressurizedRoom greaterPressureRoom)
     {
         Vector3 characterPos = CharacterMotor.instance.transform.position;
         float differenceX = characterPos.x - transform.position.x;
@@ -71,6 +82,6 @@ public class Door : InteractableObject
 
         Vector3 impulse = new Vector3(differenceX * DOOR_BREAK_BUMP_SCALAR, differenceY * DOOR_BREAK_BUMP_SCALAR, 0);
 
-        CharacterMotor.instance.BumpCharacter(impulse);
+        CharacterMotor.instance.BumpCharacter(impulse,greaterPressureRoom);
     }
 }

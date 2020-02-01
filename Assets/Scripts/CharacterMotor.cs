@@ -160,7 +160,7 @@ public class CharacterMotor : MonoBehaviour
 
     }
 
-    public void BumpCharacter(Vector3 bumpVec)
+    public void BumpCharacter(Vector3 bumpVec, PressurizedRoom greaterPressureRoom)
     {
 
     }
