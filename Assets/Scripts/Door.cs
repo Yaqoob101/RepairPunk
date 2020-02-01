@@ -6,6 +6,7 @@ public class Door : InteractableObject
 {
     public const float DOOR_MAX_PRESSURE = 500.0f;
     public const float DOOR_BREAK_BUMP_SCALAR = 1;
+    public const float PRESSURE_FUZZY_LIMIT = 0.1f
 
 
     [SerializeField]
@@ -36,18 +37,20 @@ public class Door : InteractableObject
 
     private void Update()
     {
+        float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
         if (isOpen)
         {
-            if (Mathf.Abs(rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) > 0.1f)
+            
+            if (Mathf.Abs(differenceInPressure) > PRESSURE_FUZZY_LIMIT)
             {
-                float changeInPressure = (rooms[0].GetAirPressure() - rooms[1].GetAirPressure()) / 2;
+                float changeInPressure = (differenceInPressure) / 2;
                 rooms[0].AddAirPressure(-changeInPressure);
                 rooms[1].AddAirPressure(changeInPressure);
             }
         }
         else
         {
-            float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
+            
             if (Mathf.Abs(differenceInPressure) > DOOR_MAX_PRESSURE)
             {
                 print("A door broke! The air pressure difference was: " + differenceInPressure);
