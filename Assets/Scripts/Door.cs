@@ -53,12 +53,12 @@ public class Door : InteractableObject
                 print("A door broke! The air pressure difference was: " + differenceInPressure);
                 if (differenceInPressure > 0)
                 {
-                    print("Door 0 had the greater pressure");
+                    print("Room 0 had the greater pressure");
                     BumpPlayer(rooms[0]);
                 }
                 else
                 {
-                    print("Door 1 had the greater pressure");
+                    print("Room 1 had the greater pressure");
                     BumpPlayer(rooms[1]);
                 }
                 DoorBreak();
