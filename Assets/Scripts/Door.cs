@@ -14,7 +14,7 @@ public class Door : InteractableObject
     PressurizedRoom[] rooms = new PressurizedRoom[2];
 
     SpriteRenderer _art;
-    bool isOpen;
+    bool isOpen = true;
     bool isBroken;
 
     private void Start()
