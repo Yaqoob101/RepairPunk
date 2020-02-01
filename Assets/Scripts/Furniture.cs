@@ -15,7 +15,8 @@ public class Furniture : InteractableObject
 
     private void Start()
     {
-        drainSpeed = Random.Range(10, 100);
+        //drainSpeed = Random.Range(10, 100);
+        drainSpeed = 100;
     }
 
     // Start is called before the first frame update

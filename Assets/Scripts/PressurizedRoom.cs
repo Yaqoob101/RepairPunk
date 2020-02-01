@@ -11,6 +11,7 @@ public class PressurizedRoom : MonoBehaviour
 
     //float airPressure = DEFAULT_AIRPRESSURE; //The air pressure in this room during this tick
     float airAmount = DEFAULT_AIR_AMOUNT;
+    [SerializeField]
     float roomVolume = DEFAULT_VOLUME;
 
     /*
