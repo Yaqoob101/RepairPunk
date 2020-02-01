@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PressurizedRoom : MonoBehaviour
 {
-    public const int DEFAULT_AIRPRESSURE = 1000; //The default pressure for a room.
-    public const int DEFAULT_VOLUME = 10; //The total volume of space in the room by default
-    public const int DEFAULT_AIR_AMOUNT = 10; //The defualt amount of air in a room
+    public const float DEFAULT_AIRPRESSURE = 1000.0f; //The default pressure for a room.
+    public const float DEFAULT_VOLUME = 1.0f; //The total volume of space in the room by default
+    public const float DEFAULT_AIR_AMOUNT = 100.0f; //The defualt amount of air in a room
 
 
     //float airPressure = DEFAULT_AIRPRESSURE; //The air pressure in this room during this tick
     float airAmount = DEFAULT_AIR_AMOUNT;
-    float roomVolume;
+    float roomVolume = DEFAULT_VOLUME;
 
     /*
     public PressurizedRoom(float inVolume)
@@ -19,20 +19,18 @@ public class PressurizedRoom : MonoBehaviour
         // Room volume cannot be less than or equal to zero.
         if(inVolume <= 0)
             {
-
             }
         else
             {
             roomVolume = inVolume;
             }
         }
-
     public PressurizedRoom(float initialPressure, float inVolume)
         {
         new PressurizedRoom(inVolume);
         SetAirPressure(initialPressure);
         }
-        */
+        
     public PressurizedRoom(float initialCapacity, float initialPressure, float inVolume)
     {
         if (inVolume <= 0)
@@ -44,6 +42,7 @@ public class PressurizedRoom : MonoBehaviour
             roomVolume = inVolume;
         }
     }
+    */
 
     // Start is called before the first frame update
     void Start()
@@ -84,13 +83,22 @@ public class PressurizedRoom : MonoBehaviour
     public void AddAir(float inAir)
     {
         SetAir(airAmount + inAir);
-        print(airAmount + " " + GetAirPressure());
+        
     }
 
     private void SetAir(float inAir)
     {
-        airAmount = inAir;
+        if(airAmount < 0)
+        {
+            print("[Error]: Tried to SetAir while airAmount was negative, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to 0");
+            airAmount = 0;
+            
+        }
+        else
+        {
+            airAmount = inAir;
+        }
+        
     }
 
 }
-    
