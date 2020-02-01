@@ -80,6 +80,7 @@ public class GameOverseer : MonoBehaviour
 
     public void Failure()
     {
+        Pause();
         print("You Lose!");
     }
 }

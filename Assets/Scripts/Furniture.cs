@@ -35,7 +35,7 @@ public class Furniture : InteractableObject
     {
         if (HasAPuncture)
         {
-            room.AddAirPressure(-1 * Time.deltaTime); //This is possibly wrong, might need to be AddAir
+            room.AddAirPressure(-drainSpeed * Time.deltaTime); //This is possibly wrong, might need to be AddAir
         }
 
     }

@@ -9,7 +9,7 @@ public class PressureSensor : MonoBehaviour
     Text pressureOutput;
 
     PressurizedRoom currentRoom;
-    float hurtTimer = 1.2f;
+    float hurtTimer = 2.2f;
     float timer = 0;
 
     private void OnTriggerEnter2D (Collider2D c)
@@ -28,9 +28,10 @@ public class PressureSensor : MonoBehaviour
             pressureOutput.text = pressure.ToString();
             if (pressure <= 0)
             {
-                hurtTimer += Time.deltaTime;
+                timer += Time.deltaTime;
                 if (timer >= hurtTimer)
                 {
+                    timer = 0;
                     CharacterMotor.instance.TakeDamage(10f);
                 }
             } else

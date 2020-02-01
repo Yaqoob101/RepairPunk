@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PressurizedRoom : MonoBehaviour
 {
-    public const float DEFAULT_AIRPRESSURE = 1000.0f; //The default pressure for a room.
     public const float DEFAULT_VOLUME = 1.0f; //The total volume of space in the room by default
-    public const float DEFAULT_AIR_AMOUNT = 100.0f; //The defualt amount of air in a room
+    public const float DEFAULT_AIR_AMOUNT = 100000.0f; //The defualt amount of air in a room
 
 
     //float airPressure = DEFAULT_AIRPRESSURE; //The air pressure in this room during this tick
     float airAmount = DEFAULT_AIR_AMOUNT;
     [SerializeField]
-    float roomVolume = DEFAULT_VOLUME;
+    float roomVolume = 100;
 
     /*
     public PressurizedRoom(float inVolume)
@@ -105,7 +104,7 @@ public class PressurizedRoom : MonoBehaviour
     {
         if (airAmount < 0)
         {
-            print("[Error]: Tried to SetAir while airAmount was negative, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to 0");
+            //print("[Error]: Tried to SetAir while airAmount was negative, inAir is: " + inAir + " + airAmount was: " + airAmount + " Setting airAmount to 0");
             airAmount = 0;
 
         }
