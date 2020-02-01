@@ -54,7 +54,7 @@ public class Door : InteractableObject
                 if (differenceInPressure > 0)
                 {
                     print("Door 0 had the greater pressure");
-                    PullPlayer(rooms[0]);
+                    BumpPlayer(rooms[0]);
                 }
                 else
                 {
