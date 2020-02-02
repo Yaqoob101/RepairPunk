@@ -12,7 +12,7 @@ public class Door : InteractableObject
 
 
     [SerializeField]
-    Sprite open, shut, broken;
+    Sprite[] open, shut, broken;
     [SerializeField]
     PressurizedRoom[] rooms = new PressurizedRoom[2];
     [SerializeField]
@@ -25,14 +25,16 @@ public class Door : InteractableObject
     Color fullHealth, noHealth;
 
     AudioSource _source;
-    SpriteRenderer _art;
+    [SerializeField]
+    SpriteRenderer[] _art;
     bool isOpen = true;
     bool isBroken;
 
     private void Start()
     {
         _source = GetComponent<AudioSource>();
-        _art = GetComponent<SpriteRenderer>();
+        healthSlider.gameObject.SetActive(false);
+        //_art = GetComponent<SpriteRenderer>();
     }
 
     public override void Interact()
@@ -45,13 +47,15 @@ public class Door : InteractableObject
             {
                 StopAllCoroutines();
                 isBreaking = false;
-                _art.sprite = open;
+                for(int i = 0; i < _art.Length; i++)
+                    _art[i].sprite = open[i];
                 gameObject.layer = 9;
                 _source.clip = opening;
             }
             else
             {
-                _art.sprite = shut;
+                for (int i = 0; i < _art.Length; i++)
+                    _art[i].sprite = shut[i];
                 gameObject.layer = 8;
                 _source.clip = closing;
             }
@@ -103,6 +107,7 @@ public class Door : InteractableObject
     bool isBreaking;
     IEnumerator StartBreaking()
     {
+        healthSlider.gameObject.SetActive(true);
         float endTime = breaking.length;
         _source.clip = breaking;
         _source.time = audioTime;
@@ -132,7 +137,8 @@ public class Door : InteractableObject
         isBroken = true;
         isOpen = true;
         gameObject.layer = 9;
-        //_art.sprite = broken;
+        for (int i = 0; i < _art.Length; i++)
+            _art[i].sprite = broken[i];
         CameraShake.instance.Shake(0.5f);
 
         float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
