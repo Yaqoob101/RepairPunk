@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Door : InteractableObject
 {
@@ -16,6 +17,12 @@ public class Door : InteractableObject
     PressurizedRoom[] rooms = new PressurizedRoom[2];
     [SerializeField]
     AudioClip opening, closing, breaking, smash;
+    [SerializeField]
+    Slider healthSlider;
+    [SerializeField]
+    Image healthBar;
+    [SerializeField]
+    Color fullHealth, noHealth;
 
     AudioSource _source;
     SpriteRenderer _art;
@@ -105,6 +112,8 @@ public class Door : InteractableObject
         {
             timer += Time.deltaTime;
             audioTime = _source.time;
+            healthSlider.value = 1 - (timer / endTime);
+            healthBar.color = Color.Lerp(fullHealth, noHealth, timer / endTime);
             yield return null;
         }
 
@@ -155,12 +164,12 @@ public class Door : InteractableObject
         //float distancePercentage = 1 / (Vector3.Distance(CharacterMotor.instance.transform.position,transform.position) * 2);
         //float maxForce = 100;
         //float pullAmount = maxForce * distancePercentage;
-        Vector2 moveVector = direction * force;
+        //Vector2 moveVector = direction * force;
         //float differenceX = characterPos.x - transform.position.x;
         //float differenceY = characterPos.y - transform.position.y;
 
         //Vector3 impulse = new Vector3(differenceX * DOOR_BREAK_BUMP_SCALAR, differenceY * DOOR_BREAK_BUMP_SCALAR, 0);
-        Vector3 impulse = moveVector;
+        Vector3 impulse = direction * force; ;
         CharacterMotor.instance.BumpCharacter(impulse,greaterPressureRoom);
     }
 }

@@ -5,16 +5,21 @@ using UnityEngine;
 public class CameraShake: MonoBehaviour
 {
     public static CameraShake instance = null;
+    CameraMove mover;
+
     private void Start()
     {
         if(instance == null)
             instance = this;
         else
             Destroy(this);
+
+        Camera.main.GetComponent<CameraMove>();
     }
 
     public void Shake(float amount)
     {
+        mover.CanFollow = false;
         StartCoroutine(Vibration(amount));
     }
 
@@ -40,5 +45,6 @@ public class CameraShake: MonoBehaviour
         }
 
         transform.position = origin;
+        mover.CanFollow = false;
     }
 }
