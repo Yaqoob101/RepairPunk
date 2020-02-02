@@ -106,7 +106,7 @@ public class CharacterMotor : MonoBehaviour
             rayDirection = Vector2.down;
 
         //Debug.DrawRay(transform.position, rayDirection * 0.3f, Color.red,10f);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, 0.3f, interactables);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, 0.5f, interactables);
 
         if (hit)
             hit.collider.GetComponent<InteractableObject>().Interact();

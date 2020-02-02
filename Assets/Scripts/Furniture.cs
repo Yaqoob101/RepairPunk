@@ -7,8 +7,6 @@ public class Furniture : InteractableObject
     public bool HasAPuncture;
 
     [SerializeField]
-    string displayInfo;
-    [SerializeField]
     PressurizedRoom room;
     [SerializeField]
     float drainSpeed = 1;
@@ -25,6 +23,9 @@ public class Furniture : InteractableObject
 
     public void AddPuncture()
     {
+        if (HasAPuncture)
+            return;
+
         HasAPuncture = true;
         drainSpeed = Random.Range(1, 5);
         _source.Play();

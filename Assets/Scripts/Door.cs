@@ -101,7 +101,7 @@ public class Door : InteractableObject
     IEnumerator StartBreaking()
     {
         healthSlider.gameObject.SetActive(true);
-        float endTime = breaking.length;
+        float endTime = 7;
         _source.clip = breaking;
         _source.time = audioTime;
         _source.Play();
@@ -134,18 +134,18 @@ public class Door : InteractableObject
             _art[i].sprite = broken[i];
         CameraShake.instance.Shake(0.5f);
 
-        float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
-        print("A door broke! The air pressure difference was: " + differenceInPressure);
-        if (differenceInPressure > 0)
-        {
-            print("Room 0 had the greater pressure");
-            BumpPlayer(rooms[0]);
-        }
-        else
-        {
-            print("Room 1 had the greater pressure");
-            BumpPlayer(rooms[1]);
-        }
+        //float differenceInPressure = rooms[0].GetDifferenceInAirPressure(rooms[1]);
+        //print("A door broke! The air pressure difference was: " + differenceInPressure);
+        //if (differenceInPressure > 0)
+        //{
+        //    print("Room 0 had the greater pressure");
+        //    BumpPlayer(rooms[0]);
+        //}
+        //else
+        //{
+        //    print("Room 1 had the greater pressure");
+        //    BumpPlayer(rooms[1]);
+        //}
     }
 
     private void BumpPlayer(PressurizedRoom greaterPressureRoom)

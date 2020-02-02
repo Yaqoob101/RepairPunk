@@ -35,15 +35,13 @@ public class GameOverseer : MonoBehaviour
     {
         bar.sizeDelta = new Vector2( Vector2.Distance(startObject.transform.position, endObject.transform.position), bar.sizeDelta.y);
         StartCoroutine(GameTimer());
-        InvokeRepeating("CreatePuncture", 1f, 1f);
+        InvokeRepeating("CreatePuncture", 1f, 30f);
     }
 
     void CreatePuncture()
     {
-        if(Random.Range(1, 5) == 4)
-        {
-            allFurniture[Random.Range(0, allFurniture.Length)].AddPuncture();
-        }
+        allFurniture[Random.Range(0, allFurniture.Length)].AddPuncture();
+
     }
 
     IEnumerator GameTimer()
@@ -64,7 +62,9 @@ public class GameOverseer : MonoBehaviour
             yield return null;
         }
         // End
-        print("You win");
+        Pause();
+        winBanner.SetActive(true);
+        winBanner.transform.position = Vector2.zero;
     }
 
     private void TogglePause()
@@ -92,7 +92,7 @@ public class GameOverseer : MonoBehaviour
     }
 
     [SerializeField]
-    GameObject LoseScreenParent, loseBanner;
+    GameObject LoseScreenParent, loseBanner, winBanner;
     [SerializeField]
     Image blackFade;
     public void Failure()
@@ -120,23 +120,13 @@ public class GameOverseer : MonoBehaviour
         endTime = 1;
         RectTransform bannerTransform = loseBanner.GetComponent<RectTransform>();
         Vector2 starPos = bannerTransform.anchoredPosition;
+        loseBanner.SetActive(true);
 
         while (timer < endTime)
         {
             timer += Time.deltaTime;
-            bannerTransform.anchoredPosition = Vector2.Lerp(starPos, Vector2.zero + Vector2.right * 200, timer / endTime);
+            bannerTransform.anchoredPosition = Vector2.Lerp(starPos, Vector2.zero, timer / endTime);
             yield return null;
         }
-
-        //timer = 0;
-        //endTime = 1f;
-        //starPos = bannerTransform.anchoredPosition;
-
-        //while (timer < endTime)
-        //{
-        //    timer += Time.deltaTime;
-        //    bannerTransform.anchoredPosition = Vector2.Lerp(starPos, Vector2.zero, timer / endTime);
-        //    yield return null;
-        //}
     }
 }

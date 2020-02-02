@@ -7,6 +7,12 @@ public class CameraMove : MonoBehaviour
     public bool CanFollow, zoomedIn;
     [SerializeField]
     float minZoom, maxZoom, sensitivity;
+    Vector3 startPos;
+    private void Start()
+    {
+        startPos = transform.position;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -19,10 +25,14 @@ public class CameraMove : MonoBehaviour
         if (size != maxZoom)
             zoomedIn = true;
         else
+        {
             zoomedIn = false;
+            transform.position = startPos;
+        }
 
         if (!CanFollow || !zoomedIn)
             return;
+
         transform.position = new Vector3 (CharacterMotor.instance.transform.position.x, CharacterMotor.instance.transform.position.y, transform.position.z);
     }
 }
