@@ -18,7 +18,7 @@ public class Furniture : InteractableObject
     private void Start()
     {
         _source = GetComponent<AudioSource>();
-        AddPuncture();
+        //AddPuncture();
         //drainSpeed = Random.Range(10, 100);
         //drainSpeed = 1;
     }

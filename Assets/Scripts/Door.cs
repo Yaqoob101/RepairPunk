@@ -148,11 +148,14 @@ public class Door : InteractableObject
         //Vector3.Distance(CharacterMotor.instance.transform.position, transform.position)
 
         Vector3 direction = (CharacterMotor.instance.transform.position - transform.position).normalized;
+        float force = Mathf.Lerp(2, 0, Vector3.Distance(CharacterMotor.instance.transform.position, transform.position) / 2);
+        //print(Vector3.Distance(CharacterMotor.instance.transform.position, transform.position) + " " + force);
+
         //float maxPulldistance = 1.5f;
-        float distancePercentage = 1 / (Vector3.Distance(CharacterMotor.instance.transform.position,transform.position) * 2);
-        float maxForce = 100;
-        float pullAmount = maxForce * distancePercentage;
-        Vector2 moveVector = direction * pullAmount;
+        //float distancePercentage = 1 / (Vector3.Distance(CharacterMotor.instance.transform.position,transform.position) * 2);
+        //float maxForce = 100;
+        //float pullAmount = maxForce * distancePercentage;
+        Vector2 moveVector = direction * force;
         //float differenceX = characterPos.x - transform.position.x;
         //float differenceY = characterPos.y - transform.position.y;
 

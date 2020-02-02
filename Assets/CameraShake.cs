@@ -32,7 +32,6 @@ public class CameraShake: MonoBehaviour
 
             while (timer < endTime)
             {
-                print(transform.position);
                 timer += Time.deltaTime;
                 transform.position = Vector3.Lerp(startPos, endPos, timer / endTime);
                 yield return null;

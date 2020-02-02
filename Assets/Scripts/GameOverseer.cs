@@ -16,6 +16,9 @@ public class GameOverseer : MonoBehaviour
     [SerializeField]
     RectTransform bar;
 
+    [SerializeField]
+    Furniture[] allFurniture;
+
     bool isPaused;
 
     private void Awake()
@@ -30,7 +33,16 @@ public class GameOverseer : MonoBehaviour
     void Start()
     {
         bar.sizeDelta = new Vector2( Vector2.Distance(startObject.transform.position, endObject.transform.position), bar.sizeDelta.y);
-        StartCoroutine(GameTimer());  
+        StartCoroutine(GameTimer());
+        InvokeRepeating("CreatePuncture", 1f, 1f);
+    }
+
+    void CreatePuncture()
+    {
+        if(Random.Range(1, 5) == 4)
+        {
+            allFurniture[Random.Range(0, allFurniture.Length)].AddPuncture();
+        }
     }
 
     IEnumerator GameTimer()
