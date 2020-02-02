@@ -17,7 +17,7 @@ public class CharacterMotor : MonoBehaviour
     float speed = 1.5f;
     Animator _animator;
     FacingDirection currentOrientation;
-    bool stunned;
+    bool stunned, dead;
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class CharacterMotor : MonoBehaviour
 
     void Movement()
     {
-        if (stunned)
+        if (stunned || dead)
             return;
 
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
@@ -96,7 +96,7 @@ public class CharacterMotor : MonoBehaviour
 
     public void Interact()
     {
-        if (stunned)
+        if (stunned || dead)
             return;
 
         Vector2 rayDirection = Vector2.up;
@@ -117,7 +117,8 @@ public class CharacterMotor : MonoBehaviour
     float currentHelth = maxHealth;
     public void TakeDamage(float damage)
     {
-        StartCoroutine(DamageEffects(10f));
+        if(!dead)
+            StartCoroutine(DamageEffects(10f));
     }
 
     IEnumerator DamageEffects(float amount)
@@ -143,7 +144,10 @@ public class CharacterMotor : MonoBehaviour
         characterArt.color = Color.white;
 
         if (currentHelth <= 0)
+        {
             GameOverseer.instance.Failure();
+            dead = true;
+        }
 
     }
 

@@ -23,6 +23,8 @@ public class Door : InteractableObject
     Image healthBar;
     [SerializeField]
     Color fullHealth, noHealth;
+    [SerializeField]
+    bool isVertical;
 
     AudioSource _source;
     [SerializeField]
@@ -51,6 +53,8 @@ public class Door : InteractableObject
                     _art[i].sprite = open[i];
                 gameObject.layer = 9;
                 _source.clip = opening;
+                _art[0].sortingOrder = 2;
+
             }
             else
             {
@@ -58,6 +62,7 @@ public class Door : InteractableObject
                     _art[i].sprite = shut[i];
                 gameObject.layer = 8;
                 _source.clip = closing;
+               _art[0].sortingOrder = isVertical ? 0 : 2;
             }
             _source.time = 0;
             _source.Play();
@@ -81,17 +86,6 @@ public class Door : InteractableObject
             
             if (Mathf.Abs(differenceInPressure) > DOOR_MAX_PRESSURE || rooms[0].GetAirPressure() < ROOM_MIN_PRESSURE || rooms[1].GetAirPressure() < ROOM_MIN_PRESSURE)
             {
-                //print("A door broke! The air pressure difference was: " + differenceInPressure);
-                //if (differenceInPressure > 0)
-                //{
-                //    print("Room 0 had the greater pressure");
-                //    BumpPlayer(rooms[0]);
-                //}
-                //else
-                //{
-                //    print("Room 1 had the greater pressure");
-                //    BumpPlayer(rooms[1]);
-                //}
                 if (!isBreaking)
                 {
                     isBreaking = true;
@@ -99,7 +93,6 @@ public class Door : InteractableObject
                 }
             }
         }
-        //print("Air Pressure room 1: " + rooms[1].GetAirPressure());
     }
 
     float timer = 0;
@@ -163,7 +156,7 @@ public class Door : InteractableObject
         //Vector3.Distance(CharacterMotor.instance.transform.position, transform.position)
 
         Vector3 direction = (CharacterMotor.instance.transform.position - transform.position).normalized;
-        float force = Mathf.Lerp(2, 0, Vector3.Distance(CharacterMotor.instance.transform.position, transform.position) / 2);
+        float force = Mathf.Lerp(1, 0, Vector3.Distance(CharacterMotor.instance.transform.position, transform.position) / 2);
         //print(Vector3.Distance(CharacterMotor.instance.transform.position, transform.position) + " " + force);
 
         //float maxPulldistance = 1.5f;

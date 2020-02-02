@@ -34,10 +34,10 @@ public class Furniture : InteractableObject
     public override void Interact()
     {
         if (!HasAPuncture)
-            print(displayInfo);
+            Display.instance.ShowImage(false);
         else
         {
-            print("You have found and sealed a breach!");
+            Display.instance.ShowImage(true);
             HasAPuncture = false;
             _source.Stop();
         }

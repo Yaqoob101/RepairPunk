@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverseer : MonoBehaviour
 {
@@ -90,9 +91,52 @@ public class GameOverseer : MonoBehaviour
         //    CharacterMotor.instance.TakeDamage();
     }
 
+    [SerializeField]
+    GameObject LoseScreenParent, loseBanner;
+    [SerializeField]
+    Image blackFade;
     public void Failure()
     {
-        Pause();
+        //Pause();
         print("You Lose!");
+        StartCoroutine(LoseEffects());
+    }
+    IEnumerator LoseEffects()
+    {
+        float timer = 0;
+        float endTime = 2f;
+
+        Color startColor = Color.clear;
+        Color endColor = Color.black;
+
+        while (timer < endTime)
+        {
+            timer += Time.deltaTime;
+            blackFade.color = Color.Lerp(startColor, endColor, timer / endTime);
+            yield return null;
+        }
+
+        timer = 0;
+        endTime = 1;
+        RectTransform bannerTransform = loseBanner.GetComponent<RectTransform>();
+        Vector2 starPos = bannerTransform.anchoredPosition;
+
+        while (timer < endTime)
+        {
+            timer += Time.deltaTime;
+            bannerTransform.anchoredPosition = Vector2.Lerp(starPos, Vector2.zero + Vector2.right * 200, timer / endTime);
+            yield return null;
+        }
+
+        //timer = 0;
+        //endTime = 1f;
+        //starPos = bannerTransform.anchoredPosition;
+
+        //while (timer < endTime)
+        //{
+        //    timer += Time.deltaTime;
+        //    bannerTransform.anchoredPosition = Vector2.Lerp(starPos, Vector2.zero, timer / endTime);
+        //    yield return null;
+        //}
     }
 }
