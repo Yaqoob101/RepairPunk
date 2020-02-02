@@ -14,7 +14,7 @@ public class CameraShake: MonoBehaviour
         else
             Destroy(this);
 
-        Camera.main.GetComponent<CameraMove>();
+        mover = Camera.main.GetComponent<CameraMove>();
     }
 
     public void Shake(float amount)

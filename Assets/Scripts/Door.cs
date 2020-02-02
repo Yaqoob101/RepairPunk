@@ -169,7 +169,8 @@ public class Door : InteractableObject
         //float differenceY = characterPos.y - transform.position.y;
 
         //Vector3 impulse = new Vector3(differenceX * DOOR_BREAK_BUMP_SCALAR, differenceY * DOOR_BREAK_BUMP_SCALAR, 0);
-        Vector3 impulse = direction * force; ;
-        CharacterMotor.instance.BumpCharacter(impulse,greaterPressureRoom);
+        Vector3 impulse = direction * force;
+        if(impulse != Vector3.zero)
+            CharacterMotor.instance.BumpCharacter(impulse,greaterPressureRoom);
     }
 }

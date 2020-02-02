@@ -14,7 +14,7 @@ public class CharacterMotor : MonoBehaviour
     LayerMask interactables;
 
     SpriteRenderer characterArt;
-    float speed = 2;
+    float speed = 1.5f;
     Animator _animator;
     FacingDirection currentOrientation;
     bool stunned;
@@ -27,6 +27,7 @@ public class CharacterMotor : MonoBehaviour
             Destroy(this);
 
         _animator = GetComponent<Animator>();
+        _source = GetComponent<AudioSource>();
         characterArt = GetComponent<SpriteRenderer>();
     }
 
@@ -91,27 +92,6 @@ public class CharacterMotor : MonoBehaviour
             else if (moveDirection.x < 0)
                 characterArt.flipX = true;
         }
-
-        //if (moveDirection.y == 0)
-        //{
-        //    // Character is facing to the side
-        //    _animator.SetBool("isWalkingSide", true);
-        //    currentOrientation = FacingDirection.Side;
-        //    if (moveDirection.x > 0)
-        //        characterArt.flipX = false;
-        //    else if (moveDirection.x < 0)
-        //        characterArt.flipX = true;
-        //} else if (moveDirection.y > 0)
-        //{
-        //    // Character is facing up
-        //    _animator.SetBool("isWalkingUp", true);
-        //    currentOrientation = FacingDirection.Up;
-        //} else
-        //{
-        //    // Character is facing down
-        //    _animator.SetBool("isWalkingDown", true);
-        //    currentOrientation = FacingDirection.Down;
-        //}
     }
 
     public void Interact()
@@ -145,15 +125,21 @@ public class CharacterMotor : MonoBehaviour
         //Initial damage and feed back
         currentHelth -= amount;
         float speedReference = speed;
+        float animationSpeed = _animator.speed;
+
         speed = 0;
+        _animator.speed = 0;
         characterArt.color = Color.red;
         stunned = true;
+        _source.clip = hit;
+        _source.Play();
 
         // Play Animation
         yield return new WaitForSeconds(0.2f);
 
         stunned = false;
         speed = speedReference;
+        _animator.speed = animationSpeed;
         characterArt.color = Color.white;
 
         if (currentHelth <= 0)
@@ -185,5 +171,16 @@ public class CharacterMotor : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    [SerializeField]
+    AudioClip stepLeft, stepRight, hit;
+    AudioSource _source;
+    bool isLeftFoot;
+    void Step()
+    {
+        isLeftFoot = !isLeftFoot;
+        _source.clip = isLeftFoot ? stepLeft : stepRight;
+        _source.Play();
     }
 }
